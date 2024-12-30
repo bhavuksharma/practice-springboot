@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Explorer;
 import com.example.demo.repository.IExplorerRepository;
+import com.example.demo.service.ExplorerService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,38 +23,38 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExplorerRestController {
 
-	private IExplorerRepository explorerRepository;
+	private final ExplorerService explorerService;
 	
 	@Autowired
-	public ExplorerRestController(IExplorerRepository explorerRepository) {
-		this.explorerRepository = explorerRepository;
+	public ExplorerRestController(ExplorerService explorerService) {
+		this.explorerService = explorerService;
 	}
 	
 	@GetMapping
 	public List<Explorer> getAllExplorers(){
-		List<Explorer> explorerList = explorerRepository.findAll();
+		List<Explorer> explorerList = explorerService.getAllExplorers();
 		log.info("list of explorer returned ----> "+ "\n"+explorerList);
 		return explorerList;
 	}
 	
 	@GetMapping("/{id}")
 	public Explorer findExplorerById(@PathVariable("id") Long theId){
-		return explorerRepository.findById(theId);
+		return explorerService.findExplorerById(theId);
 	}
 	
 	@PostMapping
 	public int saveExplorer(@RequestBody Explorer theExplorer) {
-		return explorerRepository.save(theExplorer);
+		return explorerService.saveExplorer(theExplorer);
 	}
 	
 	@PutMapping("/{id}")
 	public int updateExplorer(@PathVariable("id") Long theId, @RequestBody Explorer theExplorer) {
 		theExplorer.setId(theId);
-		return explorerRepository.update(theExplorer);
+		return explorerService.updateExplorer(theExplorer);
 	}
 	
 	@DeleteMapping("/{id}")
 	public int deleteExplorerById(@PathVariable("id") Long theId) {
-		return explorerRepository.deleteById(theId);
+		return explorerService.deleteExplorerById(theId);
 	}
 }
