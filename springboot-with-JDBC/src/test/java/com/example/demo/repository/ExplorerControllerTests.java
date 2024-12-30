@@ -18,12 +18,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.demo.controller.ExplorerRestController;
 import com.example.demo.entity.Explorer;
+import com.example.demo.service.ExplorerService;
 
 @ExtendWith(MockitoExtension.class)
 public class ExplorerControllerTests {
 	
 	@Mock
-	private IExplorerRepository repository;
+	private ExplorerService explorerService;
 	
 	@InjectMocks
 	private ExplorerRestController controller;
@@ -40,7 +41,7 @@ public class ExplorerControllerTests {
 	@Test
 	void getAllExplorersTest() {
 		// Arrange
-		when(repository.findAll()).thenReturn(Arrays.asList(explorer1,explorer2));
+		when(explorerService.getAllExplorers()).thenReturn(Arrays.asList(explorer1,explorer2));
 		
 		// Act
 		List<Explorer> explorers = controller.getAllExplorers();
@@ -49,13 +50,13 @@ public class ExplorerControllerTests {
 		assertNotNull(explorers);
 		assertEquals(2, explorers.size());
 		assertEquals("Ray", explorers.get(1).getName());
-		verify(repository, times(1)).findAll();
+		verify(explorerService, times(1)).getAllExplorers();
 	}
 	
 	@Test
 	void findExplorerByIdTest() {
 		// Arrange
-		when(repository.findById(1L)).thenReturn(explorer1);
+		when(explorerService.findExplorerById(1L)).thenReturn(explorer1);
 		
 		// Act
 		Explorer explorer = controller.findExplorerById(1L);
@@ -63,46 +64,46 @@ public class ExplorerControllerTests {
 		// Assert
 		assertNotNull(explorer);
 		assertEquals("Jai", explorer.getName());
-		verify(repository, times(1)).findById(1L);
+		verify(explorerService, times(1)).findExplorerById(1L);
 	}
 	
 	@Test
 	void saveExplorerTest() {
 		// Arrange 
-		when(repository.save(explorer1)).thenReturn(1);
+		when(explorerService.saveExplorer(explorer1)).thenReturn(1);
 		
 		// Act
 		int rowAffected = controller.saveExplorer(explorer1);
 		
 		// Assert
 		assertEquals(1, rowAffected);
-		verify(repository, times(1)).save(explorer1);
+		verify(explorerService, times(1)).saveExplorer(explorer1);
 	}
 	
 	@Test
 	void updateExplorerTest() {
 		// Arrange
-		when(repository.update(explorer1)).thenReturn(1);
+		when(explorerService.updateExplorer(explorer1)).thenReturn(1);
 		
 		// Act
 		int rowAffected = controller.updateExplorer(1L, explorer1);
 		
 		// Assert
 		assertEquals(1, rowAffected);
-		verify(repository, times(1)).update(explorer1);
+		verify(explorerService, times(1)).updateExplorer(explorer1);
 	}
 	
 	@Test
 	void deleteExplorerByIdTest() {
 		// Arrange
-		when(repository.deleteById(1L)).thenReturn(1);
+		when(explorerService.deleteExplorerById(1L)).thenReturn(1);
 		
 		// Act
 		int rowAffected = controller.deleteExplorerById(1L);
 		
 		// Assert
 		assertEquals(1, rowAffected);
-		verify(repository, times(1)).deleteById(1L);
+		verify(explorerService, times(1)).deleteExplorerById(1L);
 	}
 	
 	

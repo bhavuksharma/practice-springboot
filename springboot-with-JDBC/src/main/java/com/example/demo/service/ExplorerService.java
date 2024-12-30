@@ -21,8 +21,25 @@ public class ExplorerService {
 		this.explorerRepository = explorerRepository;
 	}
 	
-	public List<Explorer> findAll(){
+	public List<Explorer> getAllExplorers(){
 		return explorerRepository.findAll();
+	}
+	
+	public Explorer findExplorerById(Long id) {
+		return explorerRepository.findById(id);
+	}
+	
+	public int saveExplorer(Explorer theExplorer) {
+		int rowsaffected = explorerRepository.save(theExplorer);
+		return rowsaffected;
+	}
+	
+	public int updateExplorer(Explorer theExplorer) {
+		return explorerRepository.update(theExplorer);
+	}
+	
+	public int deleteExplorerById(Long id) {
+		return explorerRepository.deleteById(id);
 	}
 	
 }
