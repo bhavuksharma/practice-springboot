@@ -1,0 +1,26 @@
+[
+  {
+    "user_id":1,
+    "user_name":"rin",
+    "email_address":"rin@123.com",
+    "address":[
+       {
+         "street":"123 main",
+         "city":"whitefield",
+         "zipcode":"1234"
+       }	
+    ]
+  },
+  {
+    "user_id":2,
+    "user_name":"sae",
+    "email_address":"sae@123.com",
+    "address":[
+       {
+         "street":"321 main",
+         "city":"rockfield",
+         "zipcode":"4321"
+       }	
+    ]
+  }
+]
